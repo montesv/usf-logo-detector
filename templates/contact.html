@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <div class="App">
+        <header class="App-header">
+            <h1>Contact Us</h1>
+        </header>
+        <nav class="App-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <main class="App-main">
+            <p>Fill out the form below to get in touch:</p>
+            <form>
+                <label>
+                    Name:
+                    <input type="text" />
+                </label>
+                <label>
+                    Email:
+                    <input type="email" />
+                </label>
+                <label>
+                    Message:
+                    <textarea name="Message" id="" cols="30" rows="10"></textarea>
+                </label>
+                <button type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+</body>
+
+<footer class="App-footer">
+    <p>© Built by Raed, Mateus, Mohammed, Vincent</p>
+</footer>
+
+</html>

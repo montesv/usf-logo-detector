@@ -1,0 +1,157 @@
+h1
+{
+    text-align: center;
+}
+
+form
+{
+    text-align: center;
+}
+
+.App {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.App-header {
+    background-color: #006747;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: #cfc493;
+}
+
+.App-nav {
+    background-color: #f2f2f2;
+    padding: 1em;
+}
+
+.App-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.App-nav li {
+    margin: 0 1;
+    padding: 10px;
+}
+
+.App-nav a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.App-nav a:hover {
+    color: #282c34;
+}
+
+.App-main {
+    flex-grow: 1;
+    padding: 2em;
+}
+
+.App-main form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.App-main label {
+    margin-top: 1em;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.App-main input[type="text"],
+.App-main input[type="email"],
+.App-main textarea {
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    width: 100%;
+}
+
+.App-main button[type="submit"] {
+    background: linear-gradient(#4e9caf, #2f6897);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.App-main button[type="submit"]:hover {
+    background-color: #404a5a;
+    opacity: 0.8;
+}
+
+.App-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #cfc493;
+    color: #fff;
+}
+
+.App-footer p {
+    margin: 0;
+    font-size: 1em;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+}
+
+#submitbutton {
+    background: linear-gradient(#4e9caf, #2f6897);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

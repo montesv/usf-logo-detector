@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>USF Logo Detector</title>
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+	<div class="App">
+        <header class="App-header">
+            <h1>USF Logo Detector</h1>
+        </header>
+        <nav class="App-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+	<div class="container">
+		<div class="box">
+			<form class="App-main form" id="input-form" method="post" action="/">
+                <label class="App-main label" for="email">Email:</label>
+				<input class="App-main input" type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
+
+				<label class="App-main label" for="url">URL:</label>
+				<input type="url" name="url" id="url" placeholder="https://example.com/" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$" size="30" required>
+
+                <label class="App-main label" for="notes">Notes:</label>
+                <textarea class="App-main textarea" id="notes" name="notes" rows="4" cols="50" placeholder="Write your notes here..."></textarea><br><br>
+
+				<input id="submitbutton" type="submit" name="submitbutton" value="Submit"/>
+			</form>
+		</div>
+	</div>
+
+	</div>
+
+	<script>
+		function validateEmail(email) {
+			var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+			return emailPattern.test(email);
+		}
+
+<!--		function validateUrl(url) {-->
+<!--			var urlPattern = /^(https?://)?([\w-]+.)+[\w-]{2,}(:\d{1,5})?(/.)?$/?;-->
+<!--			return urlPattern.test(url);-->
+<!--		}-->
+
+		document.getElementById("input-form").addEventListener("submit", function(event) {
+			var emailInput = document.getElementById("email");
+			var urlInput = document.getElementById("url");
+			var emailError = "";
+			var urlError = "";
+
+			if (!validateEmail(emailInput.value)) {
+				emailError = "Please enter a valid email address.";
+			}
+
+			if (!validateUrl(urlInput.value)) {
+				urlError = "Please enter a valid URL (e.g., 'http://www.example.com').";
+			}
+
+			emailInput.setCustomValidity(emailError);
+			urlInput.setCustomValidity(urlError);
+
+			if (emailError || urlError) {
+				event.preventDefault();
+			}
+		});
+
+		// Reset custom validity messages on input change
+		document.getElementById("email").addEventListener("input", function() {
+			this.setCustomValidity("");
+		});
+
+		document.getElementById("url").addEventListener("input", function() {
+			this.setCustomValidity("");
+		});
+		</script>
+
+</body>
+
+<footer class="App-footer">
+	<p>© Built by Raed, Mateus, Mohammed, Vincent</p>
+</footer>
+
+</html>
