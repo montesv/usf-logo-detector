@@ -31,6 +31,9 @@
 
                 <label class="App-main label" for="notes">Notes:</label>
                 <textarea class="App-main textarea" id="notes" name="notes" rows="4" cols="50" placeholder="Write your notes here..."></textarea><br><br>
+				
+				<label class="App-main label" for="num_images">Number of Images:</label>
+				<input class="App-main input" type="number" id="num_images" name="num_images" min="1" placeholder="Enter the number of images to be crawled" required><br><br>
 
 				<input id="submitbutton" type="submit" name="submitbutton" value="Submit"/>
 			</form>
@@ -45,10 +48,10 @@
 			return emailPattern.test(email);
 		}
 
-<!--		function validateUrl(url) {-->
-<!--			var urlPattern = /^(https?://)?([\w-]+.)+[\w-]{2,}(:\d{1,5})?(/.)?$/?;-->
-<!--			return urlPattern.test(url);-->
-<!--		}-->
+// <!--		function validateUrl(url) {-->
+// <!--			var urlPattern = /^(https?://)?([\w-]+.)+[\w-]{2,}(:\d{1,5})?(/.)?$/?;-->
+// <!--			return urlPattern.test(url);-->
+// <!--		}-->
 
 		document.getElementById("input-form").addEventListener("submit", function(event) {
 			var emailInput = document.getElementById("email");
@@ -80,6 +83,33 @@
 		document.getElementById("url").addEventListener("input", function() {
 			this.setCustomValidity("");
 		});
+
+
+		function validateNumImages(numImages) {
+  			var numImagesPattern = /^[1-9]\d*$/;
+  			return numImagesPattern.test(numImages);
+		}
+
+		document.getElementById("input-form").addEventListener("submit", function (event) {
+  			var numImagesInput = document.getElementById("num_images");
+  			var numImagesError = "";
+
+			if (!validateNumImages(numImagesInput.value)) {
+				numImagesError = "Please enter a valid positive integer for the number of images.";
+			}
+
+			numImagesInput.setCustomValidity(numImagesError);
+
+			if (numImagesError) {
+				event.preventDefault();
+			}
+		});
+
+// Reset custom validity messages on input change
+		document.getElementById("num_images").addEventListener("input", function () {
+  			this.setCustomValidity("");
+		});
+
 		</script>
 
 </body>
