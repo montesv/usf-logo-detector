@@ -68,7 +68,6 @@ def about():
 @app.route('/contact.html')
 def contact():
 
-    send_mail()
     return render_template("contact.html")  # Returns index.html file in templates folder.
 
 @app.route('/index.html')
