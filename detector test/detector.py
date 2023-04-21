@@ -203,11 +203,13 @@ def send_mail(output_path):
 
 # start detection
 if __name__ == '__main__':
+    print("conn string: ",connection_string)
 
+    cwd = os.getcwd()
     credentials = ApiKeyCredentials(in_headers={"Prediction-key": prediction_key})
     prediction_client = CustomVisionPredictionClient(endpoint=customvision_endpoint, credentials=credentials)
     copyrighted = 'copyrighted.txt'
-    json_path = 'tutorial\\outputfile.json'
+    json_path = 'detector test\\data.json'
 
     
 
@@ -216,10 +218,7 @@ if __name__ == '__main__':
 
 
     # Open the JSON file
-    cwd = os.getcwd()
     url_path = os.path.join(cwd,json_path)
-    
-    # clear duplicate urls in JSON file
     with open(url_path) as f:
         # Initialize an empty set to store the unique URLs
         unique_urls = set()
@@ -244,8 +243,8 @@ if __name__ == '__main__':
     with open(url_path, 'w') as f:
         for data in unique_json_objects:
             f.write(json.dumps(data) + '\n')
-    
-    # Open the JSON file, with no duplicates
+
+    # Open the JSON file
     with open(json_path) as f:
         # Initialize an empty list to store the URLs
         url_list = []
@@ -261,6 +260,8 @@ if __name__ == '__main__':
     print(url_list)
 
     # get cwd for output folders' path, create paths for each folder
+    
+    logo_output_path = os.path.join(cwd,'output-of-logo-detector')
     final_output_path = os.path.join(cwd,'final-output-of-detector')
     
     # create a new directory for final output
@@ -342,6 +343,18 @@ if __name__ == '__main__':
                     if len(text_result.lines) == 0: # not text detected
                         print("No text on image.")
                         
+                        # outputfile = 'marked_image' + str(image_count) + '.jpg'
+                        
+                        # if not os.path.exists(logo_output_path):
+                        #     os.makedirs(logo_output_path)
+                        # else:
+                        #     shutil.rmtree(logo_output_path)
+                        #     os.makedirs(logo_output_path)
+                            
+                        # output_path = logo_output_path+ '\\' + outputfile
+                        # fig.savefig(output_path) # save in directory
+                        # print('Results saved in '+ logo_output_path + outputfile)
+                        
                     else: # mark text detected on image 
                         print("Text detected in image:",image_count)
                         with open(copyrighted) as file:
@@ -373,5 +386,5 @@ if __name__ == '__main__':
 
     # email results
     print("Emailing results...")
-    send_mail(final_output_path)
-    # blob_upload(final_output_path) 
+  #  send_mail(final_output_path)
+    blob_upload(final_output_path) 
