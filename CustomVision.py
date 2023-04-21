@@ -33,7 +33,7 @@ class Endpoint_class:
     prediction_key = "139023d87b174213ab54f4c6db9ff98b"
     # prediction_resource_id = "/subscriptions/f294215e-1528-4d11-a41c-2c5eb70966a0/resourceGroups/USFCapstoneSpring2023/providers/Microsoft.CognitiveServices/accounts/usflogodetector"
     ProjectID = "2c5d2353-119b-4244-9dd8-754a81b4bae3"
-    ModelName = "Iteration4"
+    ModelName = "Iteration5"
 
     # computer vision credentials
     subscription_key = "f990511341b449048664f7a18991401c"
@@ -101,7 +101,7 @@ class Endpoint_class:
         for prediction in results.predictions:
             fileout = imgout+ str(imgcount) + ".jpg"
 
-            if (prediction.probability * 100) > 30:
+            if (prediction.probability * 100) > 30 and prediction.tag_name != "fsu-logo":
                 url_image = requests.get(image_url).content
                 with open(fileout, 'wb') as handler:
                     handler.write(url_image)
