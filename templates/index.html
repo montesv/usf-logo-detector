@@ -52,6 +52,7 @@
 			return emailPattern.test(email);
 		}
 
+		// Email and URL
 		document.getElementById("input-form").addEventListener("submit", function(event) {
 			var emailInput = document.getElementById("email");
 			var urlInput = document.getElementById("url");
@@ -88,7 +89,7 @@
   			var numImagesPattern = /^[1-9]\d*$/;
   			return numImagesPattern.test(numImages);
 		}
-
+		// Number of images
 		document.getElementById("input-form").addEventListener("submit", function (event) {
   			var numImagesInput = document.getElementById("num_images");
   			var numImagesError = "";
@@ -109,6 +110,7 @@
   			this.setCustomValidity("");
 		});
 
+		// Spinner
 		document.getElementById("input-form").addEventListener("submit", function(event) {
 			var submitButton = document.getElementById("submitbutton");
 			var spinner = document.getElementById("spinner");
