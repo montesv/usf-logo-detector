@@ -42,16 +42,15 @@
 
 	</div>
 
+	<div id="spinner" class="spinner-container hide">
+		<img src="static\styles\img\Iphone-spinner-2.gif" alt="Loading">
+	</div>
+
 	<script>
 		function validateEmail(email) {
 			var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 			return emailPattern.test(email);
 		}
-
-// <!--		function validateUrl(url) {-->
-// <!--			var urlPattern = /^(https?://)?([\w-]+.)+[\w-]{2,}(:\d{1,5})?(/.)?$/?;-->
-// <!--			return urlPattern.test(url);-->
-// <!--		}-->
 
 		document.getElementById("input-form").addEventListener("submit", function(event) {
 			var emailInput = document.getElementById("email");
@@ -108,6 +107,14 @@
 		// Reset custom validity messages on input change
 		document.getElementById("num_images").addEventListener("input", function () {
   			this.setCustomValidity("");
+		});
+
+		document.getElementById("input-form").addEventListener("submit", function(event) {
+			var submitButton = document.getElementById("submitbutton");
+			var spinner = document.getElementById("spinner");
+
+			submitButton.disabled = true;
+			spinner.classList.remove("hide");
 		});
 
 		</script>
