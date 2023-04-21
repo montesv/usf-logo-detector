@@ -81,6 +81,7 @@ def submit():
         s = request.form['url']  # Getting the Input Amazon Product URL
         e = request.form['email']
         n = request.form['notes']
+        l = request.form['num_images']
 
         global notes
         notes = n
@@ -90,6 +91,9 @@ def submit():
 
         global email
         email = e
+
+        global limit
+        limit = l
 
         # This will remove any existing file with the same name so that the scrapy will not append the data to any previous file.
         if os.path.exists("<path_to_outputfile.json>"):
@@ -116,12 +120,20 @@ def scrape():
         os.rmdir(OPdirpath)
 
     print(output_data)
+    print("\n")
+    print(str(limit))
+    print("\n")
     for i in output_data:
         for v in i.values():
             print(v)
             VisionAPI.Azure_endpoint(VisionAPI, v, count)
-
+            print("count:",count)
             count = count + 1
+            if count == int(limit):
+                break
+
+        if count == int(limit):
+            break
     time.sleep(5)
     print("sending mail")
 
