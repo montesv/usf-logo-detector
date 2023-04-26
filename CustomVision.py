@@ -92,14 +92,14 @@ class Endpoint_class:
         color = 'magenta'
 
         # "\\output-of-final-detector\\" +
-
+        pathtest = os.path.abspath('.')
         imgout = "output"
         imgcount = count
 
 
 
         for prediction in results.predictions:
-            fileout = imgout+ str(imgcount) + ".jpg"
+            fileout = pathtest+"/"+imgout + str(imgcount) + ".jpg"
 
             if (prediction.probability * 100) > 30 and prediction.tag_name != "fsu-logo":
                 url_image = requests.get(image_url).content
@@ -139,12 +139,12 @@ class Endpoint_class:
                     if len(text_result.lines) == 0:
                         print("No text on image.")
                         outputfile = 'marked_image' + str(imgcount) + '.jpg'
-                        if not os.path.isdir("output-of-logo-detector/"):
-                            os.makedirs("output-of-logo-detector/")
+                        if not os.path.isdir(pathtest+"/output-of-logo-detector/"):
+                            os.makedirs(pathtest+"/output-of-logo-detector/")
                         plt.imshow(image)
-                        fig.savefig('output-of-logo-detector/' + outputfile)
+                        fig.savefig(pathtest+"/output-of-logo-detector/" + outputfile)
                         plt.close(fig)
-                        print('Results saved in ', 'output-of-logo-detector/' + outputfile)
+                        print('Results saved in ',pathtest + '/output-of-logo-detector/' + outputfile)
                         continue
 
                     with open(copyrighted) as file:
@@ -168,10 +168,10 @@ class Endpoint_class:
 
                                         # save marked image
                                         outputfile = 'marked_image' + str(imgcount) + '.jpg'
-                                        if not os.path.isdir("output-of-final-detector/"):
-                                            os.makedirs("output-of-final-detector/")
-                                        fig.savefig('output-of-final-detector/' + outputfile)
+                                        if not os.path.isdir(pathtest +"/output-of-final-detector/"):
+                                            os.makedirs(pathtest+"/output-of-final-detector/")
+                                        fig.savefig(pathtest+'/output-of-final-detector/' + outputfile)
                                         plt.close(fig)
-                                        print('Results saved in ', 'output-of-detector/' + outputfile)
+                                        print('Results saved in ',pathtest+ '/output-of-detector/' + outputfile)
 
                                     # email results
