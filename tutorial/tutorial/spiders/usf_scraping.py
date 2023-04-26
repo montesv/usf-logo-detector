@@ -30,10 +30,10 @@ class LinkSpider(scrapy.Spider):
         image_urls = response.css('img')
         for url in image_urls:
             img_url = url.xpath('@src').get()
-            if img_url.endswith(".jpg"):
-                self.ret_links.append(img_url)
-                print("GOT ONE !!!!!!")
-                yield MyItem(url = img_url)
+            if ".jpg" in img_url:
+                self.ret_links.append("https:"+img_url)
+
+                yield MyItem(url = "https:"+img_url)
 
 
 

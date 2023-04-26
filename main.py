@@ -108,7 +108,7 @@ def scrape():
 
     time.sleep(10)  # Pause the function while the scrapy spider is running
     count = 0
-
+    print(len(output_data))
     OPdirpath = './output-of-final-detector/'
 
     if os.path.isdir(OPdirpath):
