@@ -106,6 +106,8 @@ def submit():
 def scrape():
     scrape_with_crochet(baseURL=baseURL)  # Passing that URL to our Scraping Function
 
+    VisionAPI = CustomVision.Endpoint_class
+
     time.sleep(10)  # Pause the function while the scrapy spider is running
     count = 0
     print(len(output_data))
@@ -164,7 +166,7 @@ def _crawler_result(item, response, spider):
 
 
 if __name__ == "__main__":
-    VisionAPI = CustomVision.Endpoint_class
+
     app.run(debug=True)
 
 
