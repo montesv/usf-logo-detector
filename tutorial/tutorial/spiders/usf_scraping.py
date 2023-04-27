@@ -23,7 +23,7 @@ class LinkSpider(scrapy.Spider):
         self.start_urls.append(self.myBaseUrl)
         super().__init__(**kwargs)
 
-    custom_settings = {'FEED_URI': 'tutorial/outputfile.json', 'CLOSESPIDER_TIMEOUT': 15}
+    # custom_settings = {'FEED_URI': 'tutorial/outputfile.json', 'CLOSESPIDER_TIMEOUT': 15}
 
     def parse(self, response):
 
