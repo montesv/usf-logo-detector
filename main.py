@@ -3,7 +3,7 @@ import CustomVision
 import crochet
 crochet.setup()
 
-from flask import Flask , render_template, jsonify, request, redirect, url_for
+from flask import Flask , render_template, jsonify, request, redirect, url_for, session
 from scrapy import signals
 from scrapy.crawler import CrawlerRunner
 from scrapy.signalmanager import dispatcher
@@ -16,6 +16,7 @@ from tutorial.tutorial.spiders.usf_scraping import LinkSpider
 
 app = Flask(__name__)
 
+app.secret_key = b'\x9c\x06\xee\xbe\xf7\x8c/b\xc8\xc9\xc4B:?\xfd\xe8'
 output_data = []
 mailList = []
 crawl_runner = CrawlerRunner()
@@ -80,22 +81,26 @@ def home():
 @app.route('/', methods=['POST'])
 def submit():
     if request.method == 'POST':
-        s = request.form['url']  # Getting the Input Amazon Product URL
-        e = request.form['email']
-        n = request.form['notes']
-        l = request.form['num_images']
+        # s = request.form['url']  # Getting the Input Amazon Product URL
+        # e = request.form['email']
+        # n = request.form['notes']
+        # l = request.form['num_images']
 
-        global notes
-        notes = n
+        session['url'] = request.form['url']
+        session['email'] = request.form['email']
+        session['notes'] = request.form['notes']
+        session['num_images'] = request.form['num_images']
+        # global notes
+        # notes = n
 
-        global baseURL
-        baseURL = s
+        # global baseURL
+        # baseURL = s
 
-        global email
-        email = e
+        # global email
+        # email = e
 
-        global limit
-        limit = l
+        # global limit
+        # limit = l
 
         # This will remove any existing file with the same name so that the scrapy will not append the data to any previous file.
         if os.path.exists("<path_to_outputfile.json>"):
@@ -106,11 +111,14 @@ def submit():
 
 @app.route("/scrape")
 def scrape():
-    global baseURL
 
-    scrape_with_crochet(baseURL=baseURL)  # Passing that URL to our Scraping Function
+    print(session['email'])
+
+    scrape_with_crochet(baseURL=session['url'])  # Passing that URL to our Scraping Function
 
     VisionAPI = CustomVision.Endpoint_class
+
+    limit = session['num_images']
 
     time.sleep(10)  # Pause the function while the scrapy spider is running
     count = 0
@@ -153,7 +161,7 @@ def scrape():
 @app.route('/mail')
 def mail():
     time.sleep(10)
-    send_mail(email=email, notes=notes)
+    send_mail(email=session['email'], notes=session['notes'])
     return render_template("about.html")  # Returns index.html file in templates folder.
 
 @crochet.run_in_reactor
