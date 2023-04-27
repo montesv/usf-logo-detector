@@ -86,39 +86,41 @@ class Endpoint_class:
 
         #######new stuff
 
-        fig = plt.figure(figsize=(8, 8))
-        plt.axis('off')
-
-        color = 'magenta'
+        # fig = plt.figure(figsize=(8, 8))
+        # plt.axis('off')
+        #
+        # color = 'magenta'
 
         # "\\output-of-final-detector\\" +
-        pathtest = os.path.abspath('.')
-        imgout = "output"
-        imgcount = count
+        # pathtest = os.path.abspath('.')
+        # imgout = "output"
+        # imgcount = count
 
-
-
+        ret_str = "1"
         for prediction in results.predictions:
-            fileout = pathtest+"/"+imgout + str(imgcount) + ".jpg"
+            # fileout = pathtest+"/"+imgout + str(imgcount) + ".jpg"
 
             if (prediction.probability * 100) > 30 and prediction.tag_name != "fsu-logo":
-                url_image = requests.get(image_url).content
-                with open(fileout, 'wb') as handler:
-                    handler.write(url_image)
-                image_file = fileout
-                image = Image.open(image_file)
-                h, w, ch = np.array(image).shape
-                lineWidth = int(w / 100)
-                draw = ImageDraw.Draw(image)
+                ret_str = "Violaion found at the following link: " +str(image_url)+"\n"\
+                          + "confidence level: "+ str(prediction.probability) + "\n"
 
-                left = prediction.bounding_box.left * w
-                top = prediction.bounding_box.top * h
-                height = prediction.bounding_box.height * h
-                width = prediction.bounding_box.width * w
+                # url_image = requests.get(image_url).content
+                # with open(fileout, 'wb') as handler:
+                #     handler.write(url_image)
+                # image_file = fileout
+                # image = Image.open(image_file)
+                # h, w, ch = np.array(image).shape
+                # lineWidth = int(w / 100)
+                # draw = ImageDraw.Draw(image)
 
-                points = ((left, top), (left + width, top), (left + width, top + height), (left, top + height), (left, top))
-                draw.line(points, fill=color, width=lineWidth)
-                plt.annotate(prediction.tag_name + ": {0:.2f}%".format(prediction.probability * 100), xy=(left, top))
+                # left = prediction.bounding_box.left * w
+                # top = prediction.bounding_box.top * h
+                # height = prediction.bounding_box.height * h
+                # width = prediction.bounding_box.width * w
+                #
+                # points = ((left, top), (left + width, top), (left + width, top + height), (left, top + height), (left, top))
+                # draw.line(points, fill=color, width=lineWidth)
+                # plt.annotate(prediction.tag_name + ": {0:.2f}%".format(prediction.probability * 100), xy=(left, top))
 
 
                 # plt.imshow(image)
@@ -138,13 +140,13 @@ class Endpoint_class:
                     text_result = read_result.analyze_result.read_results[0]
                     if len(text_result.lines) == 0:
                         print("No text on image.")
-                        outputfile = 'marked_image' + str(imgcount) + '.jpg'
-                        if not os.path.isdir(pathtest+"/output-of-logo-detector/"):
-                            os.makedirs(pathtest+"/output-of-logo-detector/")
-                        plt.imshow(image)
-                        fig.savefig(pathtest+"/output-of-logo-detector/" + outputfile)
-                        plt.close(fig)
-                        print('Results saved in ',pathtest + '/output-of-logo-detector/' + outputfile)
+                        # outputfile = 'marked_image' + str(imgcount) + '.jpg'
+                        # if not os.path.isdir(pathtest+"/output-of-logo-detector/"):
+                        #     os.makedirs(pathtest+"/output-of-logo-detector/")
+                        # plt.imshow(image)
+                        # fig.savefig(pathtest+"/output-of-logo-detector/" + outputfile)
+                        # plt.close(fig)
+                        # print('Results saved in ',pathtest + '/output-of-logo-detector/' + outputfile)
                         continue
 
                     with open(copyrighted) as file:
@@ -158,20 +160,23 @@ class Endpoint_class:
                                         continue
                                     if re.search(phrase, line.text,
                                                  re.IGNORECASE) is not None:  # if sensitive word found
-                                        points = (line.bounding_box[0], line.bounding_box[1], line.bounding_box[2],
-                                                  line.bounding_box[3], line.bounding_box[4], line.bounding_box[5],
-                                                  line.bounding_box[6], line.bounding_box[7], line.bounding_box[0],
-                                                  line.bounding_box[1])
-                                        draw.line(points, fill=color, width=lineWidth)
-                                        plt.annotate(line.text, xy=(points[0], points[1]))
-                                        plt.imshow(image)
+                                        # points = (line.bounding_box[0], line.bounding_box[1], line.bounding_box[2],
+                                        #           line.bounding_box[3], line.bounding_box[4], line.bounding_box[5],
+                                        #           line.bounding_box[6], line.bounding_box[7], line.bounding_box[0],
+                                        #           line.bounding_box[1])
+                                        # draw.line(points, fill=color, width=lineWidth)
+                                        # plt.annotate(line.text, xy=(points[0], points[1]))
+                                        # plt.imshow(image)
+                                        ret_str = ret_str + "Sensitive word found: " + str(line.text) + "\n"
 
                                         # save marked image
-                                        outputfile = 'marked_image' + str(imgcount) + '.jpg'
-                                        if not os.path.isdir(pathtest +"/output-of-final-detector/"):
-                                            os.makedirs(pathtest+"/output-of-final-detector/")
-                                        fig.savefig(pathtest+'/output-of-final-detector/' + outputfile)
-                                        plt.close(fig)
-                                        print('Results saved in ',pathtest+ '/output-of-detector/' + outputfile)
+                                        # outputfile = 'marked_image' + str(imgcount) + '.jpg'
+                                        # if not os.path.isdir(pathtest +"/output-of-final-detector/"):
+                                        #     os.makedirs(pathtest+"/output-of-final-detector/")
+                                        # fig.savefig(pathtest+'/output-of-final-detector/' + outputfile)
+                                        # plt.close(fig)
+                                        # print('Results saved in ',pathtest+ '/output-of-detector/' + outputfile)
 
                                     # email results
+
+        return ret_str

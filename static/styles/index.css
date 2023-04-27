@@ -13,14 +13,24 @@ form
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+.App-logo {
+    max-width: 60px;
+    max-height: 60px;
+    margin-right: 20px;
+}
+
+.App-content {
+    flex-grow: 1;
 }
 
 .App-header {
     background-color: #006747;
     min-height: 10vh;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
@@ -96,6 +106,7 @@ form
     border: 1px solid #ccc;
     font-size: 1em;
     width: 100%;
+    margin-bottom: 35px;
 }
 
 .App-main button[type="submit"] {
@@ -118,11 +129,10 @@ form
 }
 
 .App-footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: auto;
     background-color: #cfc493;
     color: #fff;
 }
@@ -138,13 +148,13 @@ form
 #submitbutton {
     background: linear-gradient(#4e9caf, #2f6897);
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -155,6 +165,7 @@ form
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 60px;
 }
 
 .box {
@@ -254,7 +265,7 @@ form
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.8);
-    z-index: 100;
+    z-index: 101;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -267,4 +278,18 @@ form
 
 .hide {
     display: none;
+}
+
+.timer-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    border-radius: 5px;
+    padding: 10px 20px;
 }

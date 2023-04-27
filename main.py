@@ -17,6 +17,7 @@ from tutorial.tutorial.spiders.usf_scraping import LinkSpider
 app = Flask(__name__)
 
 output_data = []
+mailList = []
 crawl_runner = CrawlerRunner()
 
 def send_mail(email, notes):
@@ -33,21 +34,22 @@ def send_mail(email, notes):
     # yagmail.register("USF.Logo.Detector@gmail.com", "USFTeam$")
     # yag = yagmail.SMTP("USF.Logo.Detector@gmail.com")
     # saving path of marked images, to be attached
-    dirpath = './output-of-final-detector/'
-    attachments_path = []
-    if os.path.exists(dirpath):
-        fnames = os.listdir("./output-of-final-detector/")
-        for name in fnames:
-            attachments_path.append(dirpath + name)
+    # dirpath = './output-of-final-detector/'
+    # attachments_path = []
+    # if os.path.exists(dirpath):
+    #     fnames = os.listdir("./output-of-final-detector/")
+    #     for name in fnames:
+    #         attachments_path.append(dirpath + name)
 
-    print(attachments_path)
 
     # if any images were marked
-    if len(attachments_path) != 0:
-        TEXT = "Copyrighted material has been found in the link you entered. The images are attached below.\n" +"Notes: \n" +notes+ "\n"
+    if len(mailList) != 0:
+        TEXT = "Copyrighted material has been found in the link you entered. The images are linked below.\n" +"Notes: \n" +notes+ "\n"
 
+        for text in mailList:
+            TEXT = TEXT + text
         # Adding Content and sending it
-        yag.send(TO, SUBJECT, TEXT, attachments=attachments_path)
+        yag.send(TO, SUBJECT, TEXT)
     else:
         TEXT = "No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.\n" +"Notes: \n" +notes+ "\n"
         # Adding Content and sending it
@@ -113,13 +115,13 @@ def scrape():
     print(len(output_data))
     OPdirpath = './output-of-final-detector/'
 
-    if os.path.isdir(OPdirpath):
-        for file_name in os.listdir(OPdirpath):
-            # construct full file path
-            file = OPdirpath + file_name
-            if os.path.isfile(file):
-                os.remove(file)
-        os.rmdir(OPdirpath)
+    # if os.path.isdir(OPdirpath):
+    #     for file_name in os.listdir(OPdirpath):
+    #         # construct full file path
+    #         file = OPdirpath + file_name
+    #         if os.path.isfile(file):
+    #             os.remove(file)
+    #     os.rmdir(OPdirpath)
 
     print(output_data)
     print("\n")
@@ -128,7 +130,9 @@ def scrape():
     for i in output_data:
         for v in i.values():
             print(v)
-            VisionAPI.Azure_endpoint(VisionAPI, v, count)
+            findings = VisionAPI.Azure_endpoint(VisionAPI, v, count)
+            if findings != "1":
+                mailList.append(findings)
             print("count:",count)
             count = count + 1
             if count == int(limit):

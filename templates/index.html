@@ -10,6 +10,7 @@
 <body>
 	<div class="App">
         <header class="App-header">
+<!--			<img src="static\styles\img\South-Florida-Bulls-Logo.png" alt="Logo" class="App-logo">-->
             <h1>USF Logo Detector</h1>
         </header>
         <nav class="App-nav">
@@ -19,7 +20,7 @@
 				<li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
-
+	<div class="App-content">
 	<div class="container">
 		<div class="box">
 			<form class="App-main form" id="input-form" method="post" action="/">
@@ -44,7 +45,12 @@
 
 	<div id="spinner" class="spinner-container hide">
 		<img src="static\styles\img\Iphone-spinner-2.gif" alt="Loading">
+		<div id="timer-container" class="timer-container hide">
+			<p id="timer">0:00</p>
+		</div>
 	</div>
+	
+	
 
 	<script>
 		function validateEmail(email) {
@@ -111,20 +117,33 @@
 		});
 
 		// Spinner
+		// Spinner and timer
 		document.getElementById("input-form").addEventListener("submit", function(event) {
 			var submitButton = document.getElementById("submitbutton");
-			var spinner = document.getElementById("spinner");
+    		var spinner = document.getElementById("spinner");
+    		var timerContainer = document.getElementById("timer-container");
+    		var timer = document.getElementById("timer");
 
-			submitButton.disabled = true;
-			spinner.classList.remove("hide");
+    		submitButton.disabled = true;
+    		spinner.classList.remove("hide");
+    		timerContainer.classList.remove("hide");
+
+    		var startTime = new Date();
+    		var timerInterval = setInterval(function() {
+        		var elapsedTime = new Date() - startTime;
+        		var minutes = Math.floor(elapsedTime / 60000);
+        		var seconds = Math.floor((elapsedTime % 60000) / 1000);
+        		timer.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    		}, 1000);
 		});
 
 		</script>
-
+	</div>
+	</div>
+	<footer class="App-footer">
+		<p>© Built by Mateus, Mohammed, Raed, Vincent</p>
+	</footer>
+	
 </body>
-
-<footer class="App-footer">
-	<p>© Built by Raed, Mateus, Mohammed, Vincent</p>
-</footer>
 
 </html>
