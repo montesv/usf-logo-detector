@@ -106,6 +106,8 @@ def submit():
 
 @app.route("/scrape")
 def scrape():
+    global baseURL
+
     scrape_with_crochet(baseURL=baseURL)  # Passing that URL to our Scraping Function
 
     VisionAPI = CustomVision.Endpoint_class
