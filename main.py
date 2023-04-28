@@ -45,17 +45,20 @@ def send_mail(email, notes):
     # if any images were marked
     if len(mailList) != 0:
         TEXT = f"""
-            <html>
-                <body>
-                    <p style="line-height: 1; margin-bottom: 0">
-                        <strong>Copyrighted</strong> material has been found in the link you entered. The images are shown below.
+        <html>
+            <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333333;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #e0f0ff; border-radius: 4px;">
+                    <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Copyrighted Material Detected</h2>
+                    <p style="margin-top: 0; margin-bottom: 10px;">
+                        Copyrighted material has been found in the link you entered. The images are shown below.
                     </p>
-                    <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
+                    <p style="margin-top: 0; margin-bottom: 10px;">
                         <strong>Notes:</strong> {notes}
                     </p>
-                </body>
-            </html>
-            """
+                </div>
+            </body>
+        </html>
+        """
 
         # "Copyrighted material has been found in the link you entered. The images are shown below.\n" +"Notes: \n" +notes+ "\n"
 
@@ -65,17 +68,20 @@ def send_mail(email, notes):
         yag.send(TO, SUBJECT, TEXT)
     else:
         TEXT = f"""
-            <html>
-                <body>
-                    <p style="line-height: 1; margin-bottom: 0">
+        <html>
+            <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333333;">
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #e0f0ff; border-radius: 4px;">
+                    <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">No Copyrighted Material Detected</h2>
+                    <p style="margin-top: 0; margin-bottom: 10px;">
                         No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.
                     </p>
-                    <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
+                    <p style="margin-top: 0; margin-bottom: 10px;">
                         <strong>Notes:</strong> {notes}
                     </p>
-                </body>
-            </html>
-            """
+                </div>
+            </body>
+        </html>
+        """
 
         # "No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.\n" +"Notes: \n" +notes+ "\n"
         # Adding Content and sending it

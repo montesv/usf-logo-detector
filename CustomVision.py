@@ -191,10 +191,16 @@ class Endpoint_class:
                                         sensitive_word = str(line.text)
                                         ret_str = ret_str + f"""
                                         <html>
-                                            <body>
-                                                <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
-                                                    <strong>Sensitive Word Found:</strong> {sensitive_word}
+                                            <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333333;">
+                                                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f0f0f0; border-radius: 4px;">
+                                                <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Sensitive Word Detected</h2>
+                                                <p style="margin-top: 0; margin-bottom: 10px;">
+                                                    Sensitive word found in the following text:
                                                 </p>
+                                                <p style="margin-top: 0; margin-bottom: 10px;">
+                                                    <strong>Line:</strong> {line.text}
+                                                </p>
+                                                </div>
                                             </body>
                                         </html>
                                         """
