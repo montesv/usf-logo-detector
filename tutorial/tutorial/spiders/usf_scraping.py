@@ -14,6 +14,7 @@ class LinkSpider(scrapy.Spider):
     # start_urls = ["https://www.redbubble.com/shop/?query=usf&ref=search_box"]
     LOG_ENABLED = False
     ret_links = []
+    pagecount = 0
 
     myBaseUrl = ''
     start_urls = []
@@ -31,9 +32,17 @@ class LinkSpider(scrapy.Spider):
         for url in image_urls:
             img_url = url.xpath('@src').get()
             if ".jpg" in img_url:
-                self.ret_links.append("https:"+img_url)
+                if "https:" not in img_url:
+                    img_url = "https:"+img_url
+                # self.ret_links.append("https:"+img_url)
 
-                yield MyItem(url = "https:"+img_url)
+                yield MyItem(url = img_url)
+        if self.pagecount < 3:
+            self.pagecount += 1
+            next_page = response.xpath('//a[@aria-label="next page"]/@href').get()
+            next_url = "https://www.fanatics.com/" + str(next_page)
+            print("NEXT PAGE :" + str(next_url))
+            yield response.follow(next_url, callback=self.parse)
 
 
 

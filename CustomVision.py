@@ -101,8 +101,26 @@ class Endpoint_class:
             # fileout = pathtest+"/"+imgout + str(imgcount) + ".jpg"
 
             if (prediction.probability * 100) > 30 and prediction.tag_name != "fsu-logo":
-                ret_str = "Violaion found at the following link: " +str(image_url)+"\n"\
-                          + "confidence level: "+ str(prediction.probability) + "\n"
+                pred_prob = str(prediction.probability)
+                ret_str = f"""
+                <html>
+                    <body>
+                        <p style="line-height: 1; margin-bottom: 0">
+                            Violation found at the following image:
+                        </p>
+                        <p style="margin-top: 5; margin-bottom: 0">
+                            <img src="{image_url}" alt="Violation Image" />
+                            <br/>
+                            <a href="{image_url}" style="line-height=1;">
+                            {image_url}
+                            </a>
+                        </p>
+                        <p style="line-height: 1; margin-top: 5">
+                            <strong>Confidence Level:</strong> {pred_prob}
+                        </p>
+                    </body>
+                </html>
+                """
 
                 # url_image = requests.get(image_url).content
                 # with open(fileout, 'wb') as handler:
@@ -167,7 +185,16 @@ class Endpoint_class:
                                         # draw.line(points, fill=color, width=lineWidth)
                                         # plt.annotate(line.text, xy=(points[0], points[1]))
                                         # plt.imshow(image)
-                                        ret_str = ret_str + "Sensitive word found: " + str(line.text) + "\n"
+                                        sensitive_word = str(line.text)
+                                        ret_str = ret_str + f"""
+                                        <html>
+                                            <body>
+                                                <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
+                                                    <strong>Sensitive Word Found:</strong> {sensitive_word}
+                                                </p>
+                                            </body>
+                                        </html>
+                                        """
 
                                         # save marked image
                                         # outputfile = 'marked_image' + str(imgcount) + '.jpg'

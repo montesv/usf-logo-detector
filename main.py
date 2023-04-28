@@ -42,21 +42,46 @@ def send_mail(email, notes):
     #     for name in fnames:
     #         attachments_path.append(dirpath + name)
 
-
     # if any images were marked
     if len(mailList) != 0:
-        TEXT = "Copyrighted material has been found in the link you entered. The images are linked below.\n" +"Notes: \n" +notes+ "\n"
+        TEXT = f"""
+            <html>
+                <body>
+                    <p style="line-height: 1; margin-bottom: 0">
+                        <strong>Copyrighted</strong> material has been found in the link you entered. The images are shown below.
+                    </p>
+                    <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
+                        <strong>Notes:</strong> {notes}
+                    </p>
+                </body>
+            </html>
+            """
+
+        # "Copyrighted material has been found in the link you entered. The images are shown below.\n" +"Notes: \n" +notes+ "\n"
 
         for text in mailList:
             TEXT = TEXT + text
         # Adding Content and sending it
         yag.send(TO, SUBJECT, TEXT)
     else:
-        TEXT = "No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.\n" +"Notes: \n" +notes+ "\n"
+        TEXT = f"""
+            <html>
+                <body>
+                    <p style="line-height: 1; margin-bottom: 0">
+                        No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.
+                    </p>
+                    <p style="line-height: 1; margin-top: 5; margin-bottom: 0">
+                        <strong>Notes:</strong> {notes}
+                    </p>
+                </body>
+            </html>
+            """
+
+        # "No copyrighted material was found in the link you provided. Please try submitting it again or using a different one.\n" +"Notes: \n" +notes+ "\n"
         # Adding Content and sending it
         yag.send(TO, SUBJECT, TEXT)
 
-    print("Alert Sent To " +str(TO))
+    print("Alert Sent To " + str(TO))
 
 
 # By Deafult Flask will come into this when we run the file
@@ -75,7 +100,13 @@ def contact():
 
 @app.route('/index.html')
 def home():
-    return render_template("index.html")  # Returns index.html file in templates folder.
+    return render_template("index.html")
+    # Returns index.html file in templates folder.
+
+@app.route('/success.html')
+def success():
+
+    return render_template("success.html")
 
 # After clicking the Submit Button FLASK will come into this
 @app.route('/', methods=['POST'])
@@ -90,6 +121,13 @@ def submit():
         session['email'] = request.form['email']
         session['notes'] = request.form['notes']
         session['num_images'] = request.form['num_images']
+
+        print("output_data: " + str(len(output_data)))
+        output_data.clear()
+        print("output_data: " + str(len(output_data)))
+        print("mailList: " + str(len(mailList)))
+        mailList.clear()
+        print("mailList: " + str(len(mailList)))
         # global notes
         # notes = n
 
@@ -162,7 +200,7 @@ def scrape():
 def mail():
     time.sleep(10)
     send_mail(email=session['email'], notes=session['notes'])
-    return render_template("about.html")  # Returns index.html file in templates folder.
+    return render_template("success.html")  # Returns index.html file in templates folder.
 
 @crochet.run_in_reactor
 def scrape_with_crochet(baseURL):
