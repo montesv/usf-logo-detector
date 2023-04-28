@@ -104,20 +104,23 @@ class Endpoint_class:
                 pred_prob = str(prediction.probability)
                 ret_str = f"""
                 <html>
-                    <body>
-                        <p style="line-height: 1; margin-bottom: 0">
-                            Violation found at the following image:
-                        </p>
-                        <p style="margin-top: 5; margin-bottom: 0">
-                            <img src="{image_url}" alt="Violation Image" />
+                    <body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #333333;">
+                        <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f0f0f0; border-radius: 4px;">
+                            <h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Violation Detected</h2>
+                            <p style="margin-top: 0; margin-bottom: 10px;">
+                                Violation found at the following image:
+                            </p>
+                            <p style="margin-top: 0; margin-bottom: 10px;">
+                                <img src="{image_url}" alt="Violation Image" style="max-width: 100%;" />
                             <br/>
-                            <a href="{image_url}" style="line-height=1;">
+                            <a href="{image_url}" style="display: inline-block; margin-top: 5px; color: #0066cc; text-decoration: none;">
                             {image_url}
                             </a>
-                        </p>
-                        <p style="line-height: 1; margin-top: 5">
-                            <strong>Confidence Level:</strong> {pred_prob}
-                        </p>
+                            </p>
+                            <p style="margin-top: 0; margin-bottom: 10px;">
+                                <strong>Confidence Level:</strong> {pred_prob}
+                            </p>
+                        </div>
                     </body>
                 </html>
                 """
