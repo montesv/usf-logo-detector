@@ -21,6 +21,7 @@ class LinkSpider(scrapy.Spider):
 
     def __init__(self, category='', **kwargs):  # The category variable will have the input URL.
         self.myBaseUrl = category
+        self.start_urls.clear()
         self.start_urls.append(self.myBaseUrl)
         super().__init__(**kwargs)
 
@@ -37,7 +38,7 @@ class LinkSpider(scrapy.Spider):
                 # self.ret_links.append("https:"+img_url)
 
                 yield MyItem(url = img_url)
-        if self.pagecount < 3:
+        if self.pagecount < 5:
             self.pagecount += 1
             next_page = response.xpath('//a[@aria-label="next page"]/@href').get()
             next_url = "https://www.fanatics.com/" + str(next_page)
