@@ -12,11 +12,3 @@ pip install -r requirements.txt
 run the main function of the project, named main.py
 
 go to the link in the terminal for the locally hosted website.
-
-CONTENTS OF ZIP FILE:
-
-Demo video, named: project_demo.mp4
-Final presentation video, named: FINAL_VID.mp4
-README file (this file)
-
-source code, named: microsoft3_20 2
